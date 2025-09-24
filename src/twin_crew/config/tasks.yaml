@@ -1,0 +1,116 @@
+develop_pitch_outline_task:
+  description: >
+    Review the user's raw startup idea (startup_idea) and Enrique's professional profile.
+    Your goal is to create a strategic pitch outline that highlights the synergy between the idea and Enrique's skills.
+    The outline must be structured to be compelling to a technical co-founder.
+
+    **Enrique's Key Profile Points to Consider**:
+    - Master's in Data Science (Harvard), background in Machine Learning and AI.
+    - Professional experience as an ML Engineer at Graphite (NLP, Kubeflow, Airflow, scaling AI systems).
+    - Passion for applied AI, agentic systems, systems engineering, and building production-grade infrastructure.
+    - Stated interest in building products for AI agents, not just humans.
+
+    **Your Outline Should Include**:
+    1.  **Core Value Proposition**: A single, powerful sentence describing the startup's mission.
+    2.  **The Problem**: Clearly define the problem being solved.
+    3.  **The Solution**: Describe the proposed product or service.
+    4.  **Why Us? (The Co-Founder Fit)**: This is the most critical section. Explicitly state why the combination of the user's idea and Enrique's specific background creates a uniquely qualified founding team.
+    5.  **Initial Market & Opportunity**: Briefly describe the target audience and market potential.
+
+    **Steps to Execute**:
+    - **Analyze the Startup Idea**: Identify core problem, solution, market opportunity, and technical requirements.
+    - **Map Enrique's Background**: Review his AI/ML expertise, systems engineering strengths, and interests in agentic systems.
+    - **Find Strategic Alignment**: Identify where Enrique's skills directly solve technical challenges and accelerate development.
+    - **Develop Pitch Structure**: Craft powerful core value proposition and structured outline with clear sections.
+
+    **Rules for Creating Compelling Co-Founder Pitches**:
+    - **Rule #1: Lead with Technical Synergy**: Always start with how Enrique's specific skills solve critical technical challenges.
+    - **Rule #2: Showcase Complementary Strengths**: Highlight how user's domain knowledge + Enrique's technical skills = unstoppable team.
+    - **Rule #3: Create Urgency with "Why Now"**: Connect Enrique's current interests (agentic systems, AI infrastructure) to the startup's mission.
+
+    Here is the user's original startup idea:
+    {startup_idea}
+
+    Enrique's background information:
+    {enrique_background}
+
+  expected_output: >
+    - A sharp, one-sentence Core Value Proposition.
+    - A structured pitch outline with clear sections and talking points for each, emphasizing the "Why Us?" angle.
+    - Specific references to Enrique's background and how it aligns with the startup's technical needs.
+  agent: pitch_strategist
+
+write_pitch_draft_task:
+  description: >
+    Using the strategic outline provided, write a complete and persuasive draft of the startup pitch.
+    The tone should be confident, clear, and professional, aimed at a technical and business-savvy audience.
+    Flesh out each section of the outline, turning bullet points into compelling paragraphs.
+    Ensure the "Why Us?" section is particularly strong, making a clear and enthusiastic case for the co-founder partnership.
+    The total length should be concise, with a MAXIMUM of 200 words. If the draft exceeds 200 words, you must revise and condense it.
+    You MUST call the Word Counter Tool on the final draft and, if the count exceeds 200, iteratively revise and re-check until the count is ≤ 200 BEFORE returning any output.
+
+    **Target Length**: MAXIMUM 200 words (use WordCounterTool to ensure proper length and revise if over limit)
+
+    **Best Practices for Writing the Pitch**:
+    - **Start with the Hook**: Open with a compelling problem statement that resonates with Enrique's interests.
+    - **Develop the Solution Narrative**: Clearly explain how the product/service works, highlighting technical innovation.
+    - **Build the Co-Founder Case**: Dedicate substantial section to "Why Enrique" - reference his specific background.
+    - **Address Market and Opportunity**: Provide credible market size and growth projections.
+    - **Create Urgency and Call to Action**: End with compelling reason why Enrique should join now.
+
+    **Rules for Writing Compelling Startup Pitches**:
+    - **Rule #1: Lead with Technical Credibility**: Use precise technical language that shows understanding of Enrique's expertise.
+    - **Rule #2: Show, Don't Tell**: Use concrete examples instead of abstract promises, reference specific technologies Enrique has worked with.
+    - **Rule #3: Make It Personal**: Connect the startup's mission to Enrique's stated interests (agentic systems, AI infrastructure).
+
+    Here is the user's original startup idea:
+    {startup_idea}
+
+    Enrique's background information:
+    {enrique_background}
+
+  expected_output: >
+    A fully drafted startup pitch in RAW TEXT (no markdown). The pitch should be well-structured, persuasive,
+    and ready for review. It must clearly articulate the problem, solution, market, and co-founder fit.
+    Target length: MAXIMUM 200 words. Do NOT return any draft above 200 words.
+  agent: pitch_writer
+
+refine_pitch_for_fit_task:
+  description: >
+    Review the drafted startup pitch. Your primary goal is to refine and polish it to maximize its appeal to Enrique as a potential technical co-founder.
+    Scrutinize the language, tone, and strategic positioning.
+
+    **Your Review Checklist**:
+    - **Clarity and Impact**: Is the message sharp and instantly understandable?
+    - **Technical Credibility**: Does the pitch sound credible to an experienced AI engineer? Avoid marketing fluff.
+    - **Alignment with Enrique's Interests**: Does the pitch connect with his stated passion for agentic systems, applied AI, and scalable infrastructure? If not, subtly rephrase parts to create that connection.
+    - **Co-Founder Fit**: Is the "Why Us?" section convincing? Does it make Enrique feel like he is the missing piece of the puzzle? Strengthen this section if needed.
+    - **Final Polish**: Check for any typos, grammatical errors, or awkward phrasing. Ensure the final output is professional and ready to be presented.
+
+    **Steps to Execute**:
+    - **Review Technical Credibility**: Verify all technical claims are accurate and specific.
+    - **Analyze Co-Founder Fit Section**: Ensure the "Why Enrique" section is compelling and specific.
+    - **Check Strategic Positioning**: Ensure the pitch aligns with Enrique's stated interests.
+    - **Polish Language and Flow**: Improve clarity and conciseness throughout.
+    - **Final Enrique Alignment Check**: Verify the pitch speaks to his technical background and interests.
+
+    **Rules for Refining Co-Founder Pitches**:
+    - **Rule #1: Technical Precision Over Marketing Speak**: Replace vague terms with specific technologies.
+    - **Rule #2: Enrique-Specific Language**: Reference his specific experiences (Graphite, Harvard, MIT AI Studio).
+    - **Rule #3: Credibility Over Excitement**: Ensure all claims are backed by logic or evidence.
+
+    Important:
+    - Only respond with the final, polished pitch draft. Do not include any other text, notes, or commentary.
+    - Ensure the pitch is MAXIMUM 200 words (use WordCounterTool to verify and revise if over limit).
+    - You MUST call the Word Counter Tool on the final text and, if the count exceeds 200, iteratively revise and re-check until the count is ≤ 200 BEFORE returning the output.
+
+    Here is the user's original startup idea:
+    {startup_idea}
+
+    Enrique's background information:
+    {enrique_background}
+
+  expected_output: >
+    A final, polished startup pitch in RAW TEXT (no markdown). The pitch should be persuasive, strategically sound, and perfectly tailored to appeal to Enrique.
+    Target length: MAXIMUM 200 words. Do NOT return any output above 200 words.
+  agent: pitch_refiner
