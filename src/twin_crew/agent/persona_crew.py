@@ -2,6 +2,7 @@ from collections.abc import Callable
 from typing import Any, Final
 
 from crewai import Crew, Process, Task
+from crewai.crews.crew_output import CrewOutput
 from crewai.project import CrewBase, agent, crew, task
 
 from twin_crew.agent.named_agent import NamedAgent
@@ -44,8 +45,8 @@ def create_persona_handler() -> Callable[[str], str]:
 
     def handle_message(message_text: str) -> str:
         try:
-            inputs = {"user_input": message_text}
-            result = persona_crew_instance.crew().kickoff(inputs=inputs)
+            inputs: dict[str, str] = {"user_input": message_text}
+            result: CrewOutput = persona_crew_instance.crew().kickoff(inputs=inputs)
             return str(result)
         except Exception as e:
             return f"An error occurred: {e}"
