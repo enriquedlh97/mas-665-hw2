@@ -4,8 +4,10 @@ from typing import Any, Final
 from crewai import Crew, Process, Task
 from crewai.crews.crew_output import CrewOutput
 from crewai.project import CrewBase, agent, crew, task
+from langchain_anthropic import ChatAnthropic
 
 from twin_crew.agent.named_agent import NamedAgent
+from twin_crew.config import settings
 
 
 @CrewBase
@@ -19,15 +21,18 @@ class PersonaCrew:
         return NamedAgent(
             name=config["name"],
             config=config,
-            verbose=False,
+            verbose=settings.debug_mode,
             allow_delegation=False,
+            llm=ChatAnthropic(
+                api_key=settings.anthropic_api_key, model=settings.claude_model
+            ),
         )
 
     @task  # type: ignore
     def persona_task(self) -> Task:
         return Task(
             config=self.tasks_config["greet_and_explain_purpose"],  # type: ignore
-            agent=self.persona_agent(),
+            # agent=self.persona_agent(),
         )
 
     @crew  # type: ignore
@@ -36,7 +41,7 @@ class PersonaCrew:
             agents=[self.persona_agent()],
             tasks=[self.persona_task()],
             process=Process.sequential,
-            verbose=False,
+            verbose=settings.debug_mode,
         )
 
 

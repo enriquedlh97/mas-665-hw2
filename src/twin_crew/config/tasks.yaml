@@ -11,3 +11,4 @@ greet_and_explain_purpose:
     A warm, welcoming introductory message that clearly states your name (Enrique),
     your purpose, and an open-ended question to encourage the user to share their startup idea.
     The response should be in raw text, without any markdown formatting. It should reflect a friendly and collaborative tone.
+  agent: chat_manager
