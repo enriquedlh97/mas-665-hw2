@@ -24,3 +24,4 @@
   - Implementation uses CrewAI with `@CrewBase` and YAML persona/task configs (`src/twin_crew/config/agents.yaml`, `src/twin_crew/config/tasks.yaml`), exposed via `create_persona_handler()` in `src/twin_crew/agent/persona_crew.py`. Current scope is persona-only; crew tools will be added later.
   - Adapter integration works; to force our handler path we used the "@local" prefix due to adapter routing. We fixed Anthropic model issues by using a supported Claude model and corrected YAML path resolution. Registry intermittency noted.
   - Feedback: make adapter default to custom improver for local messages (not only @-routed), make model configurable (no hardcoded default), and improve registry reliability.
+  - Note: AI assistance was used to improve the readability of `README.md` and this assignment notes document. As well as for most of the coding.
