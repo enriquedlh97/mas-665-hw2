@@ -1,57 +1,58 @@
 from collections.abc import Callable
-from typing import Any, Final
+from pathlib import Path
 
-from crewai import Crew, Process, Task
-from crewai.crews.crew_output import CrewOutput
-from crewai.project import CrewBase, agent, crew, task
+import yaml
+from crewai import Crew, Task
 from langchain_anthropic import ChatAnthropic
 
 from twin_crew.agent.named_agent import NamedAgent
 from twin_crew.config import settings
 
 
-@CrewBase
-class PersonaCrew:
-    agents_config: Final[str] = "src/twin_crew/config/agents.yaml"
-    tasks_config: Final[str] = "src/twin_crew/config/tasks.yaml"
-
-    @agent  # type: ignore
-    def chat_manager(self) -> NamedAgent:
-        config: dict[str, Any] = self.agents_config["chat_manager"]  # type: ignore
-        return NamedAgent(
-            name=config["name"],
-            config=config,
-            verbose=settings.debug_mode,
-            allow_delegation=False,
-            llm=ChatAnthropic(
-                api_key=settings.anthropic_api_key, model=settings.claude_model
-            ),
-        )
-
-    @task  # type: ignore
-    def persona_task(self) -> Task:
-        return Task(
-            config=self.tasks_config["greet_and_explain_purpose"],  # type: ignore
-        )
-
-    @crew  # type: ignore
-    def crew(self) -> Crew:
-        return Crew(
-            agents=self.agents,  # type: ignore
-            tasks=self.tasks,  # type: ignore
-            process=Process.sequential,
-            verbose=settings.debug_mode,
-        )
-
-
 def create_persona_handler() -> Callable[[str], str]:
-    persona_crew_instance = PersonaCrew()
+    config_path = Path(__file__).parent.parent / "config"
+    with open(config_path / "agents.yaml") as f:
+        agents_config = yaml.safe_load(f)
+    with open(config_path / "tasks.yaml") as f:
+        tasks_config = yaml.safe_load(f)
+
+    agent_config = agents_config["chat_manager"]
+    persona_agent = NamedAgent(
+        name=agent_config["name"],
+        role=agent_config["role"],
+        goal=agent_config["goal"],
+        backstory=agent_config["backstory"],
+        verbose=settings.debug_mode,
+        allow_delegation=False,
+        llm=ChatAnthropic(
+            api_key=settings.anthropic_api_key, model=settings.claude_model
+        ),
+    )
+
+    task_config = tasks_config["greet_and_explain_purpose"]
 
     def handle_message(message_text: str) -> str:
         try:
-            inputs: dict[str, str] = {"user_input": message_text}
-            result: CrewOutput = persona_crew_instance.crew().kickoff(inputs=inputs)
+            # Inject the user's message directly into the task description
+            formatted_description = task_config["description"].format(
+                user_input=message_text
+            )
+
+            persona_task = Task(
+                description=formatted_description,
+                expected_output=task_config["expected_output"],
+                agent=persona_agent,
+            )
+
+            crew = Crew(
+                agents=[persona_agent],
+                tasks=[persona_task],
+                verbose=settings.debug_mode,
+            )
+
+            result = crew.kickoff()
             return str(result).strip()
+
         except Exception as e:
             return f"An error occurred: {e}"
 
