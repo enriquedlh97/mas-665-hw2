@@ -208,3 +208,6 @@ __marimo__/
 
 # Docs helper
 # nanda_docs/
+
+fullchain.pem
+privkey.pem
