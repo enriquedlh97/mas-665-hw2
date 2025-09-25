@@ -2,10 +2,9 @@ from collections.abc import Callable
 from pathlib import Path
 
 import yaml
-from crewai import Crew, Task
+from crewai import Agent, Crew, Task
 from langchain_anthropic import ChatAnthropic
 
-from twin_crew.agent.named_agent import NamedAgent
 from twin_crew.config import settings
 
 
@@ -17,8 +16,7 @@ def create_persona_handler() -> Callable[[str], str]:
         tasks_config = yaml.safe_load(f)
 
     agent_config = agents_config["chat_manager"]
-    persona_agent = NamedAgent(
-        name=agent_config["name"],
+    persona_agent = Agent(
         role=agent_config["role"],
         goal=agent_config["goal"],
         backstory=agent_config["backstory"],
@@ -33,7 +31,6 @@ def create_persona_handler() -> Callable[[str], str]:
 
     def handle_message(message_text: str) -> str:
         try:
-            # Inject the user's message directly into the task description
             formatted_description = task_config["description"].format(
                 user_input=message_text
             )
@@ -52,7 +49,6 @@ def create_persona_handler() -> Callable[[str], str]:
 
             result = crew.kickoff()
             return str(result).strip()
-
         except Exception as e:
             return f"An error occurred: {e}"
 
