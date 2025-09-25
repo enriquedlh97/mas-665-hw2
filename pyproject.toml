@@ -24,6 +24,7 @@ train = "twin_crew.main:train"
 replay = "twin_crew.main:replay"
 test = "twin_crew.main:test"
 chat = "twin_crew.main:chat"
+start-local = "twin_crew.main:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/twin_crew"]
