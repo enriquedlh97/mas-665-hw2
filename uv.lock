@@ -3584,6 +3584,7 @@ dependencies = [
     { name = "nanda-adapter" },
     { name = "pydantic-settings" },
     { name = "pytz" },
+    { name = "pyyaml" },
 ]
 
 [package.optional-dependencies]
@@ -3608,6 +3609,7 @@ requires-dist = [
     { name = "pre-commit", marker = "extra == 'dev'", specifier = ">=4.3.0" },
     { name = "pydantic-settings", specifier = ">=2.10.1" },
     { name = "pytz", specifier = ">=2025.2" },
+    { name = "pyyaml", specifier = ">=6.0.2" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.13.0" },
 ]
 provides-extras = ["dev"]
