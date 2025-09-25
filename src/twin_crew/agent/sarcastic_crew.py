@@ -15,7 +15,7 @@ def create_sarcastic_handler() -> Callable[[str], str]:
         backstory="""You are a master of sarcasm and wit. You excel at taking ordinary messages
         and transforming them into clever, sarcastic versions that are humorous but not mean-spirited.
         You use techniques like irony, exaggeration, and dry humor to make messages more entertaining.""",
-        verbose=True,
+        verbose=settings.debug_mode,
         allow_delegation=False,
         llm=llm,
     )
@@ -34,7 +34,11 @@ def create_sarcastic_handler() -> Callable[[str], str]:
                 agent=sarcastic_agent,
             )
 
-            crew = Crew(agents=[sarcastic_agent], tasks=[sarcastic_task], verbose=True)
+            crew = Crew(
+                agents=[sarcastic_agent],
+                tasks=[sarcastic_task],
+                verbose=settings.debug_mode,
+            )
 
             result = crew.kickoff()
             return str(result).strip()

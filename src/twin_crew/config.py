@@ -16,6 +16,8 @@ class Settings(BaseSettings):
     ssl_enabled: bool = False
     agent_port: int = 6000
     claude_model: str = "claude-3-haiku-20240307"
+    debug_mode: bool = False
+    public_url: str | None = None
 
 
 settings = Settings()
