@@ -211,3 +211,8 @@ __marimo__/
 
 fullchain.pem
 privkey.pem
+
+# Runtime logs and artifacts
+# out.log
+# logs_*/
+# conversation_logs/
