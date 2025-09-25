@@ -8,8 +8,8 @@ from twin_crew.config import settings
 
 @CrewBase
 class PersonaCrew:
-    agents_config = "src/twin_crew/config/agents.yaml"
-    tasks_config = "src/twin_crew/config/tasks.yaml"
+    agents_config = "../config/agents.yaml"
+    tasks_config = "../config/tasks.yaml"
 
     @agent  # type: ignore
     def chat_manager(self) -> Agent:
