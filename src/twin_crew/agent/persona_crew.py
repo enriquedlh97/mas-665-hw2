@@ -3,7 +3,6 @@ from pathlib import Path
 
 import yaml
 from crewai import Agent, Crew, Task
-from langchain_anthropic import ChatAnthropic
 
 from twin_crew.config import settings
 
@@ -22,9 +21,7 @@ def create_persona_handler() -> Callable[[str], str]:
         backstory=agent_config["backstory"],
         verbose=settings.debug_mode,
         allow_delegation=False,
-        llm=ChatAnthropic(
-            api_key=settings.anthropic_api_key, model=settings.claude_model
-        ),
+        llm=settings.claude_model,
     )
 
     task_config = tasks_config["greet_and_explain_purpose"]
