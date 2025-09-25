@@ -2,17 +2,16 @@ from collections.abc import Callable
 
 from nanda_adapter import NANDA
 
-from twin_crew.agent.sarcastic_crew import create_sarcastic_handler
+from twin_crew.agent.persona_crew import create_persona_handler
 from twin_crew.config import settings
 
 
 def main() -> None:
     try:
-        sarcastic_logic: Callable[[str], str] = create_sarcastic_handler()
-        nanda = NANDA(sarcastic_logic)
+        handler_logic: Callable[[str], str] = create_persona_handler()
+        nanda = NANDA(handler_logic)
 
-        print("Starting Sarcastic Agent with CrewAI...")
-        print("All messages will be transformed to sarcastic responses!")
+        print("Starting Enrique Persona Agent with CrewAI...")
 
         nanda.start_server_api(
             anthropic_key=settings.anthropic_api_key,

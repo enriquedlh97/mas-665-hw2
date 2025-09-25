@@ -94,6 +94,15 @@ curl -X POST http://localhost:6001/api/send \
   -H "Content-Type: application/json" \
   -d '{"message": "Hello world", "conversation_id": "test-123", "client_id": "test-client"}'
 
+curl -X POST https://citana.io:6001/api/send \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Hello world", "conversation_id": "test-123", "client_id": "test-client"}'
+
+# Forces agent call when registry fails and bridge defaults to generic call
+curl -X POST https://citana.io:6001/api/send \
+-H "Content-Type: application/json" \
+-d '{"message": "@local Hello, hows it going? and what is your name?", "conversation_id": "test-123", "client_id": "test-client"}'
+
 # List registered agents
 curl http://localhost:6001/api/agents/list
 
