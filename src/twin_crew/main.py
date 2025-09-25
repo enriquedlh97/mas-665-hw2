@@ -14,10 +14,13 @@ def main() -> None:
         print("Starting Sarcastic Agent with CrewAI...")
         print("All messages will be transformed to sarcastic responses!")
 
-        if settings.environment == "local":
-            nanda.start_server()
-        else:
-            nanda.start_server_api(settings.anthropic_api_key, settings.domain_name)
+        nanda.start_server_api(
+            anthropic_key=settings.anthropic_api_key,
+            domain=settings.domain_name,
+            port=settings.agent_port,
+            public_url=settings.public_url,
+            ssl=settings.ssl_enabled,
+        )
 
     except Exception as e:
         raise RuntimeError(f"Failed to start sarcastic agent: {e}") from e

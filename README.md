@@ -69,19 +69,60 @@ uv run pre-commit install
 
 ### 4. Configuration
 
-### 5. Running the Chat
-The project uses `pyproject.toml` to define convenient scripts. To start the chat interface, run:
+### 5. Running the Sarcastic Agent
+
+The project uses `pyproject.toml` to define convenient scripts. To start the sarcastic agent server, run:
 
 ```bash
-chat
+uv run start-local
 ```
 
-or if for some reason that files, run
-```
-uv run chat
+This will launch the Nanda adapter server with the sarcastic agent running on port 6000.
+
+## API Endpoints Testing
+
+The sarcastic agent server provides both agent bridge and Flask API endpoints. All endpoints are always available regardless of environment configuration.
+
+### Available Endpoints
+
+```bash
+# Health check
+curl http://localhost:6001/api/health
+
+# Send message to agent (main endpoint for testing)
+curl -X POST http://localhost:6001/api/send \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Hello world", "conversation_id": "test-123", "client_id": "test-client"}'
+
+# List registered agents
+curl http://localhost:6001/api/agents/list
+
+# Get latest message
+curl http://localhost:6001/api/render
+
+# Stream messages (Server-Sent Events)
+curl http://localhost:6001/api/messages/stream?client_id=test-client
+
+# Agent bridge connectivity (A2A protocol)
+curl http://localhost:6000/a2a
 ```
 
-This will launch the interactive terminal where you can converse with the agent.
+### Testing the Sarcastic Transformation
+The `/api/send` endpoint is the primary way to test the sarcastic agent:
+
+```bash
+# Basic message test
+curl -X POST http://localhost:6001/api/send \
+  -H "Content-Type: application/json" \
+  -d '{"message": "This is a great day!"}'
+
+# With conversation tracking
+curl -X POST http://localhost:6001/api/send \
+  -H "Content-Type: application/json" \
+  -d '{"message": "I love this weather", "conversation_id": "weather-chat", "client_id": "user-123"}'
+```
+
+**Note**: The server runs both the agent bridge (port 6000) and Flask API (port 6001). Environment variables control SSL, domain, and other configuration options.
 
 ## Project Structure
 
