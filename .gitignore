@@ -205,3 +205,14 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Docs helper
+# nanda_docs/
+
+fullchain.pem
+privkey.pem
+
+# Runtime logs and artifacts
+# out.log
+# logs_*/
+# conversation_logs/
