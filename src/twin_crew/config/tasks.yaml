@@ -1,6 +1,8 @@
 greet_and_explain_purpose:
   description: >
-    Introduce yourself to the user based on your persona (Enrique).
+    A user has just sent the following message: "{user_input}"
+
+    Based on this message and your persona (Enrique), introduce yourself to the user.
     Explain your goal: to help the user craft a compelling startup pitch
     designed to attract a technical co-founder like yourself.
     Keep your responses concise and friendly. If the user drifts off-topic,

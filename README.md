@@ -94,6 +94,10 @@ curl -X POST http://localhost:6001/api/send \
   -H "Content-Type: application/json" \
   -d '{"message": "Hello world", "conversation_id": "test-123", "client_id": "test-client"}'
 
+curl -X POST https://citana.io:6001/api/send \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Hello world", "conversation_id": "test-123", "client_id": "test-client"}'
+
 # List registered agents
 curl http://localhost:6001/api/agents/list
 
